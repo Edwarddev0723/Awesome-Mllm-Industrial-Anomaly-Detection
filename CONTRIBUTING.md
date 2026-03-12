@@ -1,4 +1,4 @@
-# Contributing to Awesome VLM Industrial Anomaly Detection
+# Contributing to Awesome MLLM Industrial Anomaly Detection
 
 Thank you for your interest in contributing! This document outlines the guidelines for submitting papers, fixing errors, and improving this resource.
 
@@ -6,17 +6,18 @@ Thank you for your interest in contributing! This document outlines the guidelin
 
 ## Scope
 
-This list covers **Vision-Language Model (VLM) / Multimodal LLM (MLLM) approaches** applied to **industrial anomaly detection**. Contributions must fall within this intersection.
+This list covers **Multimodal Large Language Model (MLLM) approaches** applied to **industrial anomaly detection**. MLLMs are defined as models that receive images and generate natural language output (e.g., LLaVA, InternVL, GPT-4V, Qwen-VL). Contributions must fall within this intersection.
 
 **In scope:**
-- Papers using CLIP, BLIP, LLaVA, InternVL, GPT-4V, Qwen-VL, or similar VLMs/MLLMs for industrial anomaly detection/segmentation/reasoning
-- VLM-guided anomaly synthesis methods targeting industrial domains
-- Benchmarks and datasets designed for evaluating VLMs on industrial AD tasks
-- Surveys covering VLM × IAD topics
+- Papers using LLaVA, InternVL, GPT-4V, Qwen-VL, or similar generative MLLMs for industrial anomaly detection/segmentation/reasoning
+- MLLM-guided anomaly synthesis methods targeting industrial domains
+- Benchmarks and datasets designed for evaluating MLLMs on industrial AD tasks
+- Surveys covering MLLM × IAD topics
 
 **Out of scope:**
-- General anomaly detection without VLM involvement (e.g., pure CNN reconstruction methods)
-- VLM papers unrelated to anomaly detection (e.g., VQA, captioning)
+- CLIP-only anomaly detection (contrastive models without language generation)
+- General anomaly detection without MLLM involvement (e.g., pure CNN reconstruction methods)
+- MLLM papers unrelated to anomaly detection (e.g., VQA, captioning)
 - Video anomaly detection in surveillance (unless directly applicable to industrial settings)
 - Time-series or tabular anomaly detection
 
@@ -33,14 +34,14 @@ git checkout -b add/paper-shortname-year
 
 **Step 2:** Add the paper in the correct paradigm section of `README.md`. Use this format:
 
-For **CLIP-based / MLLM-based** tables:
+For **MLLM-based** tables:
 ```markdown
-| Paper Title | VENUE | YEAR | [code](URL) | Backbone | Dataset(s) | One-line key contribution |
+| Paper Title | VENUE | YEAR | [code](URL) | Base MLLM | Dataset(s) | One-line key contribution |
 ```
 
-For **Synthesis / Training-Free / RL** tables:
+For **Training-Free / RL** tables:
 ```markdown
-| Paper Title | VENUE | YEAR | [code](URL) | One-line key contribution |
+| Paper Title | VENUE | YEAR | [code](URL) | Base MLLM | One-line key contribution |
 ```
 
 **Formatting rules:**
@@ -84,7 +85,7 @@ All PRs will be reviewed against these criteria:
 
 | Criterion | Requirement |
 |-----------|-------------|
-| **Relevance** | Paper must be at the intersection of VLM/MLLM and industrial AD |
+| **Relevance** | Paper must use a generative MLLM (not CLIP-only) for industrial AD |
 | **Venue quality** | Peer-reviewed preferred (CVPR, ICCV, ECCV, NeurIPS, ICLR, ICML, AAAI, IJCAI, ACM MM, or top journals). arXiv accepted if ≥10 citations or from a recognized lab |
 | **Completeness** | All table columns filled (use `—` for unavailable info) |
 | **Accuracy** | Links verified, venue/year correct |
@@ -129,4 +130,4 @@ All PRs will be reviewed against these criteria:
 
 Open an issue with the `[Question]` tag, and we'll respond as soon as possible.
 
-Thank you for helping build this resource for the VLM × IAD research community! 🙏
+Thank you for helping build this resource for the MLLM × IAD research community! 🙏

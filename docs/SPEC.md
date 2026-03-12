@@ -1,17 +1,17 @@
-# Spec: Awesome VLM Industrial Anomaly Detection — Repo 建置規格書
+# Spec: Awesome MLLM Industrial Anomaly Detection — Repo 建置規格書
 
 ## 專案概述
 
-建立一個 GitHub awesome list repo，聚焦在 **VLM/MLLM × Industrial Anomaly Detection** 的交叉領域。
+建立一個 GitHub awesome list repo，聚焦在 **MLLM (Multimodal Large Language Model) × Industrial Anomaly Detection** 的交叉領域。
 與現有 awesome list 的差異化定位：M-3LAB 做通用工業 AD，mala-lab 做通用 Foundation Model AD，
-**本 repo 專注 VLM 在工業場景的應用**，提供 paradigm-level 分類、研究缺口標註、雙語支援。
+**本 repo 專注 MLLM（能接收影像並生成自然語言輸出的大型多模態模型）在工業場景的應用**，提供 paradigm-level 分類、研究缺口標註、雙語支援。
 
 ---
 
 ## Repo 結構
 
 ```
-awesome-vlm-industrial-anomaly-detection/
+awesome-mllm-industrial-anomaly-detection/
 ├── README.md                  # 主文件：paper list + taxonomy + gaps
 ├── CONTRIBUTING.md            # PR 規則 & 投稿格式
 ├── methodology.md             # Paper selection 方法論
@@ -92,11 +92,11 @@ awesome-vlm-industrial-anomaly-detection/
 
 | 設定項 | 建議值 |
 |--------|--------|
-| Repo name | `awesome-vlm-industrial-anomaly-detection` |
+| Repo name | `awesome-mllm-industrial-anomaly-detection` |
 | Visibility | Public |
 | License | MIT |
-| Topics | `awesome-list`, `anomaly-detection`, `vlm`, `industrial-inspection`, `clip`, `mllm`, `zero-shot`, `computer-vision` |
-| Description | A curated list of VLM/MLLM approaches for industrial anomaly detection |
+| Topics | `awesome-list`, `anomaly-detection`, `mllm`, `industrial-inspection`, `multimodal`, `llava`, `zero-shot`, `computer-vision` |
+| Description | A curated list of MLLM approaches for industrial anomaly detection |
 | Default branch | `main` |
 | Branch protection | Optional: require PR review for `main` |
 

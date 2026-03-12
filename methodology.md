@@ -9,7 +9,7 @@ This document describes how papers are selected, categorized, and maintained in 
 ### Primary Scope
 Papers must satisfy **both** conditions simultaneously:
 
-1. **VLM/MLLM involvement** — The method uses a Vision-Language Model (CLIP, BLIP, SigLIP, etc.) or a Multimodal Large Language Model (LLaVA, InternVL, GPT-4V, Qwen-VL, etc.) as a core component, not merely as an auxiliary feature extractor.
+1. **MLLM involvement** — The method uses a Multimodal Large Language Model (LLaVA, InternVL, GPT-4V, Qwen-VL, etc.) as a core component. The MLLM must be capable of receiving images and generating natural language output. CLIP-only methods (contrastive models without language generation) are **out of scope**.
 
 2. **Industrial anomaly detection target** — The method is evaluated on or designed for industrial/manufacturing anomaly detection tasks (defect detection, quality inspection, anomaly segmentation on products/parts). Benchmarks include MVTec AD, MVTec LOCO-AD, VisA, MPDD, BTAD, Real-IAD, or similar industrial datasets.
 
@@ -17,12 +17,13 @@ Papers must satisfy **both** conditions simultaneously:
 
 | Scenario | Included? | Reasoning |
 |----------|-----------|-----------|
-| Uses CLIP features but method is purely reconstruction-based | ❌ | CLIP is only a feature extractor, not leveraging VL alignment |
+| Uses CLIP for zero-shot anomaly scoring (no language generation) | ❌ | CLIP is not a generative MLLM |
 | Uses GPT-4V for anomaly reasoning on MVTec AD | ✅ | MLLM + industrial dataset |
-| VLM-based video anomaly detection on surveillance data | ❌ | Not industrial domain (unless explicitly targeting manufacturing) |
-| Anomaly synthesis guided by text prompts for industrial training | ✅ | VLM-guided generation for IAD |
-| General zero-shot CLIP method evaluated only on ImageNet OOD | ❌ | Not industrial AD evaluation |
-| Training-free method using VLM on industrial images | ✅ | VLM + industrial application |
+| Uses LLaVA to explain detected defects | ✅ | Generative MLLM + industrial application |
+| Anomaly synthesis guided by MLLM-generated descriptions | ✅ | MLLM-guided generation for IAD |
+| Anomaly synthesis using diffusion + text prompts only (no MLLM) | ❌ | No generative MLLM involvement |
+| General zero-shot CLIP method evaluated only on ImageNet OOD | ❌ | Not MLLM, not industrial AD |
+| Training-free method using MLLM prompting on industrial images | ✅ | MLLM + industrial application |
 
 ---
 
@@ -53,8 +54,8 @@ Papers are collected through the following channels, prioritized in order:
 
 Papers are retrieved using boolean combinations of terms from two groups:
 
-**Group A (VLM terms):**
-`CLIP`, `VLM`, `vision-language`, `multimodal large language model`, `MLLM`, `LVLM`, `GPT-4V`, `LLaVA`, `InternVL`, `Qwen-VL`, `visual instruction tuning`, `prompt learning`, `zero-shot`, `foundation model`
+**Group A (MLLM terms):**
+`multimodal large language model`, `MLLM`, `LVLM`, `GPT-4V`, `GPT-4o`, `LLaVA`, `InternVL`, `Qwen-VL`, `visual instruction tuning`, `multimodal reasoning`, `vision-language model`
 
 **Group B (IAD terms):**
 `anomaly detection`, `defect detection`, `anomaly segmentation`, `industrial inspection`, `quality inspection`, `MVTec`, `VisA`, `surface defect`, `manufacturing`, `industrial image`
@@ -73,11 +74,11 @@ A paper is included if it passes **all** of the following checks:
 
 | # | Criterion | Details |
 |---|-----------|---------|
-| 1 | **Scope match** | Satisfies both VLM and IAD conditions from §1 |
+| 1 | **Scope match** | Satisfies both MLLM and IAD conditions from §1 |
 | 2 | **Accessibility** | Public preprint or published paper available (arXiv, OpenReview, publisher) |
 | 3 | **Venue quality** | Tier-1 venue, OR arXiv with ≥10 citations, OR arXiv from a recognized research group |
 | 4 | **Technical contribution** | Introduces novel method, benchmark, or significant empirical insight (not just an application report) |
-| 5 | **Recency** | Published 2023 or later (VLM-era). Foundational pre-2023 papers included only if directly seminal |
+| 5 | **Recency** | Published 2023 or later (MLLM-era). Foundational pre-2023 papers included only if directly seminal |
 | 6 | **Non-duplicate** | Not a minor revision of an already-listed paper (extended journal versions may replace conference versions) |
 
 ### Special Cases for arXiv Papers
@@ -93,7 +94,8 @@ arXiv papers without peer review are included if they meet **at least one** of:
 
 Papers are excluded if **any** of the following apply:
 
-- Method does not meaningfully use VLM/MLLM (CLIP as frozen feature extractor without language alignment doesn't count)
+- Method does not use a generative MLLM (CLIP-only methods, pure CNN/reconstruction methods are excluded)
+- MLLM is used only as a frozen feature extractor without generating natural language output
 - Evaluated only on non-industrial datasets (CIFAR, ImageNet OOD, surveillance videos)
 - No publicly accessible paper (private/proprietary)
 - Pure survey with no novel method (surveys are listed in a separate section)
@@ -106,25 +108,18 @@ Papers are excluded if **any** of the following apply:
 Papers are categorized into paradigms based on their **primary technical approach**:
 
 ```
-VLM-based IAD
-├── 1. CLIP-based Zero/Few-Shot Detection
-│   └── Methods adapting CLIP's VL alignment for anomaly scoring
-│       Key signal: Uses CLIP encoder, text prompts for normal/abnormal
-│
-├── 2. MLLM-based Detection & Reasoning
+MLLM-based IAD
+├── 1. MLLM-based Detection & Reasoning
 │   └── Methods using generative MLLMs for detection + explanation
 │       Key signal: Uses LLaVA/InternVL/GPT-4V, generates text output
+│       Includes fine-tuned and customized MLLM approaches
 │
-├── 3. VLM-guided Anomaly Synthesis
-│   └── Methods using VLMs or text to generate anomaly training data
-│       Key signal: Text-driven generation, diffusion + language guidance
+├── 2. Training-Free / Prompt-Only MLLM Methods
+│   └── Methods requiring zero fine-tuning of MLLM, pure inference-time
+│       Key signal: No training loop, in-context learning, MLLM prompt engineering
 │
-├── 4. Training-Free / Prompt-Only
-│   └── Methods requiring zero fine-tuning, pure inference-time
-│       Key signal: No training loop, in-context learning, prompt engineering
-│
-└── 5. Reinforcement Learning + VLM
-    └── Methods using RL to optimize VLM reasoning for IAD
+└── 3. Reinforcement Learning + MLLM
+    └── Methods using RL to optimize MLLM reasoning for IAD
         Key signal: GRPO, PPO, reward models for detection quality
 ```
 
@@ -202,6 +197,7 @@ We actively work to mitigate these through community contributions and periodic 
 
 | Date | Change |
 |------|--------|
+| 2026-03-12 | Scope pivot: VLM → MLLM focus. Removed CLIP-only methods from scope. Updated keywords, criteria, taxonomy. |
 | 2026-03 | Initial methodology document created |
 
 ---
