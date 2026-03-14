@@ -1,7 +1,7 @@
 # Awesome MLLM Industrial Anomaly Detection
 
 [![Awesome](https://awesome.re/badge.svg)](https://awesome.re)
-[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
+[![CC0](https://img.shields.io/badge/license-CC0-green.svg)](https://creativecommons.org/publicdomain/zero/1.0/)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](./CONTRIBUTING.md)
 [![Last Update](https://img.shields.io/badge/Last_Update-2026--03-blue.svg)](#)
 
@@ -28,21 +28,39 @@ Existing awesome lists cover either *general* industrial anomaly detection (e.g.
 
 ---
 
-## Table of Contents
+## Contents
 
+- [Start Here](#start-here)
 - [Surveys & Tutorials](#surveys--tutorials)
 - [Papers by Paradigm](#papers-by-paradigm)
   - [1. MLLM-based Detection & Reasoning](#1-mllm-based-detection--reasoning)
   - [2. Training-Free / Prompt-Only MLLM Methods](#2-training-free--prompt-only-mllm-methods)
   - [3. Reinforcement Learning + MLLM](#3-reinforcement-learning--mllm)
+- [By Task / By Capability](#by-task--by-capability)
 - [Benchmarks & Datasets](#benchmarks--datasets)
   - [Established Datasets](#established-datasets)
   - [MLLM-Era Benchmarks](#mllm-era-benchmarks)
 - [Key Metrics](#key-metrics)
 - [Open Research Gaps](#open-research-gaps)
 - [Related Resources](#related-resources)
-- [Contributing](#contributing)
-- [Star History](#star-history)
+- [Recently Added](#recently-added)
+
+---
+
+## Start Here
+
+New to MLLM × IAD? Start with these papers in order before exploring the full list.
+
+| Step | Paper | Why Read This First |
+|------|-------|---------------------|
+| 1. Foundation | [AnomalyGPT](https://github.com/CASIA-IVA-Lab/AnomalyGPT) — AAAI 2024 | Established MLLM-for-IAD as a paradigm; foundational architecture and vocab used by subsequent work |
+| 2. Landscape | [Large VLMs for IAD Survey](https://www.ijerm.com/download_data/IJERM1205001.pdf) — IJERM 2025 | First survey scoping MLLM × IAD; maps all paradigms and places individual papers in context |
+| 3. Evaluation | [MMAD](https://github.com/jam-cc/MMAD) — ICLR 2025 | Defines how MLLMs are benchmarked for IAD; essential for interpreting reported numbers |
+| 4. Training-free | [LogSAD](https://github.com/zhang0jhon/LogSAD) — CVPR 2025 | Shows what prompting alone achieves on logical + structural anomalies; calibrates baselines |
+| 5. Localization | [Anomaly-OV](https://github.com/honda-research-institute/Anomaly-OneVision) — CVPR 2025 | State-of-the-art pixel-level reasoning via two-stage pipeline |
+| 6. Explainability | EIAD — arXiv 2025 | Decoupled localization + DDQA dataset; grounded, verifiable reasoning |
+| 7. RL frontier | [IAD-R1](https://github.com/Yanhui-Lee/IAD-R1) — ICCV 2025 | RL-based consistency training; represents the newest training paradigm |
+| 8. Open problems | [Research Gaps](#open-research-gaps) | Where the field is still unsolved — starting point for original contribution |
 
 ---
 
@@ -66,20 +84,20 @@ Methods that leverage Multimodal LLMs (GPT-4V, InternVL, LLaVA, Qwen-VL, etc.) f
 
 > **核心概念 (Core Idea):** 利用 MLLM 的推理能力，不僅偵測異常，更能以自然語言解釋異常原因與位置。本 repo 的核心 section。
 
-| Paper | Venue | Year | Code | Base MLLM | Dataset | Key Contribution |
-|-------|-------|------|------|-----------|---------|------------------|
-| AnomalyGPT: Detecting Industrial Anomalies Using Large VLMs | AAAI | 2024 | [code](https://github.com/CASIA-IVA-Lab/AnomalyGPT) | LLaVA | MVTec AD | First MLLM for industrial AD |
-| Customizing VL Foundation Models for Multi-modal AD and Reasoning | arXiv | 2024 | [code](https://github.com/Xiaohao-Xu/Customizable-VLM) | — | MVTec AD, VisA | Customizable VLM pipeline |
-| Anomaly-OV: Towards Zero-Shot AD and Reasoning with MLLMs | CVPR | 2025 | [code](https://github.com/honda-research-institute/Anomaly-OneVision) | InternVL / LLaVA | MVTec AD, VisA | Two-stage: anomaly expert + visual instruction tuning |
-| MMAD: Comprehensive Benchmark for MLLMs in IAD | ICLR | 2025 | [code](https://github.com/jam-cc/MMAD) | Multiple | MMAD benchmark | Multimodal benchmark for IAD |
-| EMIT: Enhancing MLLMs for IAD via Difficulty-Aware | arXiv | 2025 | — | — | MVTec AD | Difficulty-aware training |
-| OmniAD: Detect and Understand Industrial Anomaly via Multimodal Reasoning | arXiv | 2025 | — | — | MVTec AD, VisA | Multi-task reasoning |
-| Judo: Juxtaposed Domain-oriented Multimodal Reasoner for IAD QA | ICLR | 2026 | — | — | — | Domain-oriented QA reasoning |
-| Triad: Empowering LMM-based AD with Vision Expert-guided Tokenizer | arXiv | 2025 | — | — | — | Manufacturing process aware |
-| Echo: Multi-Expert Framework for MLLM in IAD | arXiv | 2025 | [code](https://github.com/Ed1sonChen/Echo) | Multiple | MMAD | Four expert modules for domain-aware reasoning |
-| EIAD: Explainable Industrial AD via Multi-Modal LLMs | arXiv | 2025 | — | MLLM | MVTec AD | Decoupled defect localization + DDQA dataset |
-| VELM: Vision Expert + LLM for Anomaly Classification | CVPR WS | 2025 | [code](https://github.com/Sassanmtr/VELM) | GPT-4o / Qwen2-VL | MVTec AD, VisA | Vision expert + LLM pipeline for classification |
-| SAGE: VLM for AD via Fact Enhancement and Alignment | ACM MM | 2025 | [code](https://github.com/amoreZgx1n/SAGE) | VLM | MVTec AD | Self-guided fact enhancement + E-DPO |
+| Paper | Venue | Year | Code | Base MLLM | Dataset | Key Contribution | Tags |
+|-------|-------|------|------|-----------|---------|------------------|------|
+| AnomalyGPT: Detecting Industrial Anomalies Using Large VLMs | AAAI | 2024 | [code](https://github.com/CASIA-IVA-Lab/AnomalyGPT) | LLaVA | MVTec AD | First MLLM for industrial AD | `Peer-reviewed` `Reasoning` |
+| Customizing VL Foundation Models for Multi-modal AD and Reasoning | arXiv | 2024 | [code](https://github.com/Xiaohao-Xu/Customizable-VLM) | — | MVTec AD, VisA | Customizable VLM pipeline | `arXiv` `Reasoning` |
+| Anomaly-OV: Towards Zero-Shot AD and Reasoning with MLLMs | CVPR | 2025 | [code](https://github.com/honda-research-institute/Anomaly-OneVision) | InternVL / LLaVA | MVTec AD, VisA | Two-stage: anomaly expert + visual instruction tuning | `Peer-reviewed` `Reasoning` `Localization` |
+| MMAD: Comprehensive Benchmark for MLLMs in IAD | ICLR | 2025 | [code](https://github.com/jam-cc/MMAD) | Multiple | MMAD benchmark | Multimodal benchmark for IAD | `Peer-reviewed` `Benchmark` |
+| EMIT: Enhancing MLLMs for IAD via Difficulty-Aware | arXiv | 2025 | — | — | MVTec AD | Difficulty-aware training | `arXiv` `Reasoning` |
+| OmniAD: Detect and Understand Industrial Anomaly via Multimodal Reasoning | arXiv | 2025 | — | — | MVTec AD, VisA | Multi-task reasoning | `arXiv` `Reasoning` |
+| Judo: Juxtaposed Domain-oriented Multimodal Reasoner for IAD QA | ICLR | 2026 | — | — | — | Domain-oriented QA reasoning | `Peer-reviewed` `Reasoning` |
+| Triad: Empowering LMM-based AD with Vision Expert-guided Tokenizer | arXiv | 2025 | — | — | — | Manufacturing process aware | `arXiv` `Reasoning` |
+| Echo: Multi-Expert Framework for MLLM in IAD | arXiv | 2025 | [code](https://github.com/Ed1sonChen/Echo) | Multiple | MMAD | Four expert modules for domain-aware reasoning | `arXiv` `Reasoning` |
+| EIAD: Explainable Industrial AD via Multi-Modal LLMs | arXiv | 2025 | — | MLLM | MVTec AD | Decoupled defect localization + DDQA dataset | `arXiv` `Reasoning` `Localization` |
+| VELM: Vision Expert + LLM for Anomaly Classification | CVPR WS | 2025 | [code](https://github.com/Sassanmtr/VELM) | GPT-4o / Qwen2-VL | MVTec AD, VisA | Vision expert + LLM pipeline for classification | `Peer-reviewed` `Reasoning` |
+| SAGE: VLM for AD via Fact Enhancement and Alignment | ACM MM | 2025 | [code](https://github.com/amoreZgx1n/SAGE) | VLM | MVTec AD | Self-guided fact enhancement + E-DPO | `Peer-reviewed` `Reasoning` |
 
 ### 2. Training-Free / Prompt-Only MLLM Methods
 
@@ -87,11 +105,11 @@ Methods requiring no fine-tuning — pure inference-time MLLM adaptation via pro
 
 > **核心概念:** 完全不需要訓練或微調 MLLM，僅透過 prompt engineering 或 in-context learning 即可偵測工業異常。
 
-| Paper | Venue | Year | Code | Base MLLM | Key Contribution |
-|-------|-------|------|------|-----------|------------------|
-| LogSAD: Training-free AD with Vision and Language Foundation Models | CVPR | 2025 | [code](https://github.com/zhang0jhon/LogSAD) | GPT-4V | Match-of-thought for logical + structural AD |
-| LogicAD: Explainable Logical AD via VLM Text Features | arXiv | 2025 | — | AVLM | Autoregressive VLM for logical anomaly detection |
-| LogicQA: Logical AD with VLM Generated Questions | ACL | 2025 | — | VLM | Training-free question-based logical AD |
+| Paper | Venue | Year | Code | Base MLLM | Key Contribution | Tags |
+|-------|-------|------|------|-----------|------------------|------|
+| LogSAD: Training-free AD with Vision and Language Foundation Models | CVPR | 2025 | [code](https://github.com/zhang0jhon/LogSAD) | GPT-4V | Match-of-thought for logical + structural AD | `Peer-reviewed` `Training-free` `Reasoning` |
+| LogicAD: Explainable Logical AD via VLM Text Features | arXiv | 2025 | — | AVLM | Autoregressive VLM for logical anomaly detection | `arXiv` `Training-free` `Reasoning` |
+| LogicQA: Logical AD with VLM Generated Questions | ACL | 2025 | — | VLM | Training-free question-based logical AD | `Peer-reviewed` `Training-free` `Reasoning` |
 
 ### 3. Reinforcement Learning + MLLM
 
@@ -99,10 +117,51 @@ Emerging paradigm: using RL (GRPO, PPO, etc.) to refine MLLM reasoning for IAD.
 
 > **核心概念:** 用強化學習微調 MLLM 的推理過程，提升工業異常偵測的一致性與準確性。新興方向。
 
-| Paper | Venue | Year | Code | Base MLLM | Key Contribution |
-|-------|-------|------|------|-----------|------------------|
-| IAD-R1: Reinforcing Consistent Reasoning in IAD | ICCV | 2025 | [code](https://github.com/Yanhui-Lee/IAD-R1) | — | Consistency via RL |
-| AnomalyR1: A GRPO-based End-to-end MLLM for IAD | arXiv | 2025 | — | — | GRPO for end-to-end IAD |
+| Paper | Venue | Year | Code | Base MLLM | Key Contribution | Tags |
+|-------|-------|------|------|-----------|------------------|------|
+| IAD-R1: Reinforcing Consistent Reasoning in IAD | ICCV | 2025 | [code](https://github.com/Yanhui-Lee/IAD-R1) | — | Consistency via RL | `Peer-reviewed` `RL` `Reasoning` |
+| AnomalyR1: A GRPO-based End-to-end MLLM for IAD | arXiv | 2025 | — | — | GRPO for end-to-end IAD | `arXiv` `RL` `Reasoning` |
+
+---
+
+## By Task / By Capability
+
+Cross-index to find papers by what they do, regardless of training paradigm.
+
+### Image-level Anomaly Classification
+
+- [AnomalyGPT](https://github.com/CASIA-IVA-Lab/AnomalyGPT) — AAAI 2024
+- [VELM](https://github.com/Sassanmtr/VELM) — CVPR WS 2025
+- [MMAD](https://github.com/jam-cc/MMAD) — ICLR 2025 *(benchmark)*
+
+### Pixel-level Localization / Segmentation
+
+- [Anomaly-OV](https://github.com/honda-research-institute/Anomaly-OneVision) — CVPR 2025 · LTFM for pixel-grounded reasoning
+- EIAD — arXiv 2025 · Decoupled localization module + DDQA evaluation
+
+### Logical Anomaly Detection
+
+- [LogSAD](https://github.com/zhang0jhon/LogSAD) — CVPR 2025 · Match-of-thought on MVTec LOCO-AD
+- LogicAD — arXiv 2025 · Autoregressive VLM for logical anomalies
+- LogicQA — ACL 2025 · Question-based logical anomaly detection
+
+### Explainable Reasoning / QA
+
+- [MMAD](https://github.com/jam-cc/MMAD) — ICLR 2025 · Multi-modal QA benchmark
+- Judo — ICLR 2026 · Domain-oriented QA reasoning
+- EIAD — arXiv 2025 · DDQA dataset + decoupled explanation pipeline
+- [Echo](https://github.com/Ed1sonChen/Echo) — arXiv 2025 · Four-module domain-aware reasoning
+
+### Training-free / Zero-shot
+
+- [LogSAD](https://github.com/zhang0jhon/LogSAD) — CVPR 2025
+- LogicAD — arXiv 2025
+- LogicQA — ACL 2025
+
+### RL-based Reasoning Refinement
+
+- [IAD-R1](https://github.com/Yanhui-Lee/IAD-R1) — ICCV 2025
+- AnomalyR1 — arXiv 2025
 
 ---
 
@@ -190,9 +249,23 @@ We welcome contributions! Please see [CONTRIBUTING.md](./CONTRIBUTING.md) for gu
 
 ---
 
+## Recently Added
+
+> Last updated: 2026-03.
+
+| Paper | Venue | Year | Added |
+|-------|-------|------|-------|
+| Judo: Juxtaposed Domain-oriented Multimodal Reasoner for IAD QA | ICLR | 2026 | 2026-03 |
+| Echo: Multi-Expert Framework for MLLM in IAD | arXiv | 2025 | 2026-03 |
+| AnomalyR1: A GRPO-based End-to-end MLLM for IAD | arXiv | 2025 | 2026-03 |
+| VELM: Vision Expert + LLM for Anomaly Classification | CVPR WS | 2025 | 2026-03 |
+| SAGE: VLM for AD via Fact Enhancement and Alignment | ACM MM | 2025 | 2026-03 |
+
+---
+
 ## Star History
 
-[![Star History Chart](https://api.star-history.com/svg?repos=YOUR_USERNAME/awesome-mllm-industrial-anomaly-detection&type=Date)](https://star-history.com/#YOUR_USERNAME/awesome-mllm-industrial-anomaly-detection&Date)
+[![Star History Chart](https://api.star-history.com/svg?repos=Edwarddev0723/Awesome-Mllm-Industrial-Anomaly-Detection&type=Date)](https://star-history.com/#Edwarddev0723/Awesome-Mllm-Industrial-Anomaly-Detection&Date)
 
 ---
 
@@ -202,22 +275,16 @@ If you find this resource helpful, please consider citing:
 
 ```bibtex
 @misc{awesome-mllm-iad,
-  author = {ED Huang},
+  author = {Ren He},
   title = {Awesome MLLM Industrial Anomaly Detection},
   year = {2026},
   publisher = {GitHub},
-  howpublished = {\url{https://github.com/YOUR_USERNAME/awesome-mllm-industrial-anomaly-detection}}
+  howpublished = {\url{https://github.com/Edwarddev0723/Awesome-Mllm-Industrial-Anomaly-Detection}}
 }
 ```
 
 ---
 
-## License
-
-This project is licensed under the MIT License — see [LICENSE](./LICENSE) for details.
-
----
-
 <p align="center">
-  <i>Maintained by <a href="https://github.com/YOUR_USERNAME">ED Huang</a> · Last updated: 2026-03</i>
+  <i>Maintained by <a href="https://github.com/Edwarddev0723">Ren He</a> · Last updated: 2026-03 · <a href="https://creativecommons.org/publicdomain/zero/1.0/">CC0 1.0</a></i>
 </p>
